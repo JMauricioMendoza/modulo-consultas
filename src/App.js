@@ -1,7 +1,16 @@
+import styled from 'styled-components';
+import {NextUIProvider} from '@nextui-org/react';
+
 export default function App() {
   return (
-    <div className='App'>
+    <NextUIProvider>
+      <AppDiv>
 
-    </div>
+      </AppDiv>
+    </NextUIProvider>
   );
 };
+
+const AppDiv = styled.div`
+
+`;
