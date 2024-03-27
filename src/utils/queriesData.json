@@ -1,0 +1,30 @@
+[
+  {
+    "label" : "Actualizar monto de seguro de vida",
+    "value" : "actualizar-seguro"
+  },
+  {
+    "label" : "Alta de usuarios de plataforma",
+    "value" : "usuarios-plataforma"
+  },
+  {
+    "label" : "Cambiar promotor y sucursal",
+    "value" : "cambiar-promotor"
+  },
+  {
+    "label" : "Grupo abierto por error",
+    "value" : "grupo-abierto"
+  },
+  {
+    "label" : "Reversa de desembolso",
+    "value" : "reversa-desembolso"
+  },
+  {
+    "label" : "Reporte de ejecutivos",
+    "value" : "reporte-ejecutivos"
+  },
+  {
+    "label" : "Buscar clave de usuario SAFI",
+    "value" : "buscar-clave"
+  }
+]
