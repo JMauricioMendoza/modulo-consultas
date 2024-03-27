@@ -5,17 +5,31 @@ import { FaSearch } from 'react-icons/fa';
 import QuerySearcher from './components/QuerySearcher';
 
 export default function App() {
+  const [searchInput, setSearchInput] = useState(null);
+
+  const onSelectionChange = (id) => {
+    setSearchInput(id);
+  };
+
+  const handleClick = () => {
+    switch(searchInput) {
+      
+    };
+  };
 
   return (
     <NextUIProvider>
       <AppDiv>
         <AllCont>
           <SearcherButtonCont>
-            <QuerySearcher/>
+            <QuerySearcher
+              onSelectionChange={onSelectionChange}
+            />
             <Button
               color='warning'
               size='md'
               startContent={<FaSearch/>}
+              onClick={handleClick}
             >
               Buscar
             </Button>
