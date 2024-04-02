@@ -26,5 +26,9 @@
   {
     "label" : "Buscar clave de usuario SAFI",
     "value" : "buscar-clave"
+  },
+  {
+    "label" : "Generador de contraseñas",
+    "value" : "generar-pass"
   }
 ]

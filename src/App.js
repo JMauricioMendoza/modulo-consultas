@@ -3,9 +3,11 @@ import styled from 'styled-components';
 import { NextUIProvider, Button } from '@nextui-org/react';
 import { FaSearch } from 'react-icons/fa';
 import QuerySearcher from './components/QuerySearcher';
+import ActualizarSeguro from './components/ActualizarSeguro';
 
 export default function App() {
   const [searchInput, setSearchInput] = useState(null);
+  const [stage, setStage] = useState(null);
 
   const onSelectionChange = (id) => {
     setSearchInput(id);
@@ -13,7 +15,9 @@ export default function App() {
 
   const handleClick = () => {
     switch(searchInput) {
-      
+      case 'actualizar-seguro':
+        setStage(<ActualizarSeguro/>);
+      break;
     };
   };
 
@@ -26,7 +30,7 @@ export default function App() {
               onSelectionChange={onSelectionChange}
             />
             <Button
-              color='warning'
+              color='primary'
               size='md'
               startContent={<FaSearch/>}
               onClick={handleClick}
@@ -34,6 +38,7 @@ export default function App() {
               Buscar
             </Button>
           </SearcherButtonCont>
+          {stage}
         </AllCont>
       </AppDiv>
     </NextUIProvider>
@@ -43,16 +48,17 @@ export default function App() {
 const AppDiv = styled.div`
   display: flex;
   justify-content: center;
-  padding-top: 36px;
+  padding-top: 32px;
   width: 100vw;
 `;
 
 const AllCont = styled.div`
-  width: 1000px;
+  width: 769px;
 `;
 
 const SearcherButtonCont = styled.div`
   align-items: end;
   display: flex;
-  gap: 18px;
+  gap: 16px;
+  padding-bottom: 48px;
 `;
