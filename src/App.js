@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { NextUIProvider, Button } from '@nextui-org/react';
-import { FaSearch } from 'react-icons/fa';
+import Header from './components/Header';
 import QuerySearcher from './components/QuerySearcher';
 import ActualizarSeguro from './components/ActualizarSeguro';
+import { FaSearch } from 'react-icons/fa';
 
 export default function App() {
   const [searchInput, setSearchInput] = useState(null);
@@ -18,6 +19,9 @@ export default function App() {
       case 'actualizar-seguro':
         setStage(<ActualizarSeguro/>);
       break;
+      default :
+        setStage(null);
+      break;
     };
   };
 
@@ -25,6 +29,7 @@ export default function App() {
     <NextUIProvider>
       <AppDiv>
         <AllCont>
+          <Header/>
           <SearcherButtonCont>
             <QuerySearcher
               onSelectionChange={onSelectionChange}
@@ -48,7 +53,7 @@ export default function App() {
 const AppDiv = styled.div`
   display: flex;
   justify-content: center;
-  padding-top: 32px;
+  padding-top: 96px;
   width: 100vw;
 `;
 

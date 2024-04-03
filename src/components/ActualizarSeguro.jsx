@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { Input, Button, Modal, ModalContent, ModalBody, useDisclosure, ModalHeader, ModalFooter } from '@nextui-org/react';
+import { Input, Button, Modal, ModalContent, ModalBody, useDisclosure, ModalHeader } from '@nextui-org/react';
 import { FaCheck, FaRegCheckCircle  } from 'react-icons/fa';
 import { MdOutlineErrorOutline } from 'react-icons/md';
 
@@ -25,6 +25,8 @@ export default function ActualizarSeguro () {
         value = value.replace(/(\..*)\./g, '$1');
         value = value.replace(/^(\.)/g, '0$1');
       break;
+      default :
+        return null;
     };
 
     setValue(value);
@@ -64,7 +66,9 @@ export default function ActualizarSeguro () {
         <ModalHeader className="flex flex-col gap-1">{mensaje}</ModalHeader>
         <ModalBody>
           <IconCont>
-            <FaRegCheckCircle/>
+            <Imagen>
+              <img src='https://pbs.twimg.com/media/Fbb96wcX0AABko4.jpg' alt='autorizo'/>
+            </Imagen>
           </IconCont>
         </ModalBody>
       </>
@@ -76,8 +80,11 @@ export default function ActualizarSeguro () {
       <>
         <ModalHeader className="flex flex-col gap-1">{error}</ModalHeader>
         <ModalBody>
-          <IconCont $rojo>
-            <MdOutlineErrorOutline/>
+          
+        <IconCont>
+          <Imagen>
+            <img src='https://pbs.twimg.com/media/FZQHdwRXoAIhzp2.jpg' alt='no-autorizo'/>
+          </Imagen>
           </IconCont>
         </ModalBody>
       </>
@@ -86,7 +93,11 @@ export default function ActualizarSeguro () {
 
   useEffect(() => {
     setIsButtonDisabled(areInputsEmpty);
-  }, [inputSolicitud, inputMonto]);  
+  }, [inputSolicitud, inputMonto]); 
+  
+  useEffect(() => {
+    if(!isOpen) setModal(null);
+  }, [isOpen]);  
 
   return(
     <>
@@ -137,10 +148,17 @@ const InputsCont = styled.div`
 `;
 
 const IconCont = styled.div`
-  color: ${({ $rojo }) => $rojo ?  '#F31260' : '#18C964'};
   display: grid;
-  font-size: 64px;
   padding-bottom: 32px;
   place-content: center;
   width: 100%;
+`;
+
+const Imagen = styled.div`
+  width: 192px;
+
+  img {
+    object-fit: cover;
+    width: 100%;
+  }
 `;
