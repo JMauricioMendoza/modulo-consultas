@@ -1,17 +1,13 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { Input, Button, Modal, ModalContent, ModalBody, useDisclosure, ModalHeader } from '@nextui-org/react';
-import { FaCheck, FaRegCheckCircle  } from 'react-icons/fa';
-import { MdOutlineErrorOutline } from 'react-icons/md';
+import { Input, Button } from '@nextui-org/react';
+import { FaCheck } from 'react-icons/fa';
 
-export default function ActualizarSeguro () {
+export default function ActualizarSeguro ({ handleModal }) {
   const [inputSolicitud, setInputSolicitud] = useState('');
   const [inputMonto, setInputMonto] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [modal, setModal] = useState(null);
-
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
   const handleChange = (ev, setValue, numberType) => {
     let value = ev.target.value;
@@ -45,59 +41,19 @@ export default function ActualizarSeguro () {
       montante : inputMonto
     };
 
-    onOpen();
-
     await axios.post('http://192.168.100.7/operaciones_GOD/public/sistemas/perrillo/actMontSeguro', data)
       .then(response => {
-        if(response.data.Estado) handleCorrect(response.data.Mensaje);
-        else handleError(response.data.Mensaje);
+        if(response.data.Estado) handleModal(false, response.data.Mensaje);
+        else handleModal(true, response.data.Mensaje);
       })
       .catch(error => {
         console.error(error);
       });
   };
 
-  const handleCorrect = (mensaje) => {
-    setInputSolicitud('');
-    setInputMonto('');
-
-    setModal(
-      <>
-        <ModalHeader className="flex flex-col gap-1">{mensaje}</ModalHeader>
-        <ModalBody>
-          <IconCont>
-            <Imagen>
-              <img src='https://pbs.twimg.com/media/Fbb96wcX0AABko4.jpg' alt='autorizo'/>
-            </Imagen>
-          </IconCont>
-        </ModalBody>
-      </>
-    );
-  };
-
-  const handleError = (error) => {
-    setModal(
-      <>
-        <ModalHeader className="flex flex-col gap-1">{error}</ModalHeader>
-        <ModalBody>
-          
-        <IconCont>
-          <Imagen>
-            <img src='https://pbs.twimg.com/media/FZQHdwRXoAIhzp2.jpg' alt='no-autorizo'/>
-          </Imagen>
-          </IconCont>
-        </ModalBody>
-      </>
-    );
-  };
-
   useEffect(() => {
     setIsButtonDisabled(areInputsEmpty);
   }, [inputSolicitud, inputMonto]); 
-  
-  useEffect(() => {
-    if(!isOpen) setModal(null);
-  }, [isOpen]);  
 
   return(
     <>
@@ -132,11 +88,6 @@ export default function ActualizarSeguro () {
       >
         Aplicar
       </Button>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-        <ModalContent>
-          {modal}
-        </ModalContent>
-      </Modal>
     </>
   );
 };
@@ -145,20 +96,4 @@ const InputsCont = styled.div`
   display: flex;
   gap: 16px;
   padding-bottom: 32px;
-`;
-
-const IconCont = styled.div`
-  display: grid;
-  padding-bottom: 32px;
-  place-content: center;
-  width: 100%;
-`;
-
-const Imagen = styled.div`
-  width: 192px;
-
-  img {
-    object-fit: cover;
-    width: 100%;
-  }
 `;

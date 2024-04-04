@@ -1,23 +1,36 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { NextUIProvider, Button } from '@nextui-org/react';
+import { NextUIProvider, Button, useDisclosure } from '@nextui-org/react';
 import Header from './components/Header';
 import QuerySearcher from './components/QuerySearcher';
 import ActualizarSeguro from './components/ActualizarSeguro';
+import GenerarPass from './components/GenerarPass';
+import ModalComp from './components/ModalComp';
 import { FaSearch } from 'react-icons/fa';
 
 export default function App() {
   const [searchInput, setSearchInput] = useState(null);
   const [stage, setStage] = useState(null);
+  const [modalContent, setModalContent] = useState({});
 
-  const onSelectionChange = (id) => {
-    setSearchInput(id);
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+
+  const handleModal = (error, mensaje) => {
+    setModalContent({
+      error : error,
+      mensaje : mensaje
+    });
+
+    onOpen();
   };
 
   const handleClick = () => {
     switch(searchInput) {
       case 'actualizar-seguro':
-        setStage(<ActualizarSeguro/>);
+        setStage(<ActualizarSeguro handleModal={handleModal}/>);
+      break;
+      case 'generar-pass':
+        setStage(<GenerarPass handleModal={handleModal}/>)
       break;
       default :
         setStage(null);
@@ -32,7 +45,7 @@ export default function App() {
           <Header/>
           <SearcherButtonCont>
             <QuerySearcher
-              onSelectionChange={onSelectionChange}
+              onSelectionChange={(id) => setSearchInput(id)}
             />
             <Button
               color='primary'
@@ -46,6 +59,7 @@ export default function App() {
           {stage}
         </AllCont>
       </AppDiv>
+      <ModalComp isOpen={isOpen} onOpenChange={onOpenChange} modalContent={modalContent}/>
     </NextUIProvider>
   );
 };

@@ -1,11 +1,10 @@
 import styled from 'styled-components';
-import logoPerrillo from '../assets/logo.png';
 
 export default function Header () {
   return(
     <HeaderCont>
       <Imagen target='_blank' href='https://pbs.twimg.com/media/CwC5L0-UEAAMcMe.jpg'>
-        <img src={logoPerrillo} alt='logo'/>
+        <img src='https://192.168.100.7/consultas-db/public/perrillo-assets/static/media/logo.png' alt='logo'/>
       </Imagen>      
       <Titulo>Sistemas perrillo</Titulo>
     </HeaderCont>
