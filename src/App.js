@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { NextUIProvider, Button, useDisclosure } from '@nextui-org/react';
 import Header from './components/Header';
@@ -6,14 +6,18 @@ import QuerySearcher from './components/QuerySearcher';
 import ActualizarSeguro from './components/ActualizarSeguro';
 import GenerarPass from './components/GenerarPass';
 import ModalComp from './components/ModalComp';
+import DarkThemeSwitch from './components/DarkThemeSwitch';
 import { FaSearch } from 'react-icons/fa';
 
 export default function App() {
   const [searchInput, setSearchInput] = useState(null);
   const [stage, setStage] = useState(null);
   const [modalContent, setModalContent] = useState({});
+  const [lightMode, setLightMode] = useState(true);
 
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
+
+  const storageKey = 'lightMode';
 
   const handleModal = (error, mensaje) => {
     setModalContent({
@@ -38,11 +42,22 @@ export default function App() {
     };
   };
 
+  useEffect(() => {
+    const storedValue = localStorage.getItem(storageKey);
+    if (storedValue !== null) {
+      setLightMode(JSON.parse(storedValue));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(storageKey, JSON.stringify(lightMode));
+  }, [lightMode]);
+
   return (
     <NextUIProvider>
-      <AppDiv>
+      <AppDiv className={lightMode ? null : 'dark text-foreground bg-background'}>
         <AllCont>
-          <Header/>
+          <Header lightMode={lightMode}/>
           <SearcherButtonCont>
             <QuerySearcher
               onSelectionChange={(id) => setSearchInput(id)}
@@ -58,8 +73,11 @@ export default function App() {
           </SearcherButtonCont>
           {stage}
         </AllCont>
+        <SwitchCont>
+          <DarkThemeSwitch setLightMode={setLightMode}/>
+        </SwitchCont>
       </AppDiv>
-      <ModalComp isOpen={isOpen} onOpenChange={onOpenChange} modalContent={modalContent}/>
+      <ModalComp isOpen={isOpen} onOpenChange={onOpenChange} modalContent={modalContent}/>      
     </NextUIProvider>
   );
 };
@@ -67,6 +85,7 @@ export default function App() {
 const AppDiv = styled.div`
   display: flex;
   justify-content: center;
+  min-height: 100vh;
   padding-top: 96px;
   width: 100vw;
 `;
@@ -80,4 +99,10 @@ const SearcherButtonCont = styled.div`
   display: flex;
   gap: 16px;
   padding-bottom: 48px;
+`;
+
+const SwitchCont = styled.div`
+  bottom: 32px;
+  left: 32px;
+  position: fixed;
 `;

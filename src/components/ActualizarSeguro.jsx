@@ -41,7 +41,7 @@ export default function ActualizarSeguro ({ handleModal }) {
       montante : inputMonto
     };
 
-    await axios.post('http://192.168.100.7/operaciones_GOD/public/sistemas/perrillo/actMontSeguro', data)
+    await axios.post('http://192.168.100.7/operaciones/public/sistemas/perrillo/actMontSeguro', data)
       .then(response => {
         if(response.data.Estado) handleModal(false, response.data.Mensaje);
         else handleModal(true, response.data.Mensaje);
