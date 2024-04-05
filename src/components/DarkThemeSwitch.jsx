@@ -1,10 +1,10 @@
 import { Switch } from '@nextui-org/react';
 import { IoMdSunny, IoMdMoon } from 'react-icons/io';
 
-export default function DarkThemeSwitch ({ setLightMode }) {
+export default function DarkThemeSwitch ({ lightMode, setLightMode }) {
   return (
     <Switch
-      defaultSelected
+      isSelected={lightMode}
       size='lg'
       color='primary'
       thumbIcon={({ isSelected, className }) =>

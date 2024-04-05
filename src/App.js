@@ -74,10 +74,10 @@ export default function App() {
           {stage}
         </AllCont>
         <SwitchCont>
-          <DarkThemeSwitch setLightMode={setLightMode}/>
+          <DarkThemeSwitch setLightMode={setLightMode} lightMode={lightMode}/>
         </SwitchCont>
+        <ModalComp isOpen={isOpen} onOpenChange={onOpenChange} modalContent={modalContent}/>      
       </AppDiv>
-      <ModalComp isOpen={isOpen} onOpenChange={onOpenChange} modalContent={modalContent}/>      
     </NextUIProvider>
   );
 };
