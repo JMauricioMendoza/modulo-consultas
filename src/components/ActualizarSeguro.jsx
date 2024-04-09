@@ -50,7 +50,7 @@ export default function ActualizarSeguro ({ handleModal }) {
         console.error(error);
       });
   };
-
+  
   useEffect(() => {
     setIsButtonDisabled(areInputsEmpty);
   }, [inputSolicitud, inputMonto]); 

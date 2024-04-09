@@ -6,6 +6,8 @@ import { FaArrowRotateLeft } from 'react-icons/fa6';
 
 export default function GenerarPass ({ handleModal }) {
   const [inputValue, setInputValue] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generateInterval, setGenerateInterval] = useState(null);
 
   const copyToClipboard = async () => {
     if (navigator.clipboard) {
@@ -32,6 +34,17 @@ export default function GenerarPass ({ handleModal }) {
 
   useEffect(getRandomPass, []);
 
+  useEffect(() => {
+    if (isGenerating) {
+      const interval = setInterval(getRandomPass, 50);
+      setGenerateInterval(interval);
+    } else {
+      clearInterval(generateInterval);
+    }
+
+    return () => clearInterval(generateInterval);
+  }, [isGenerating]);
+
   return(
     <>
       <InputButtonCont>
@@ -57,7 +70,8 @@ export default function GenerarPass ({ handleModal }) {
         color='warning'
         size='md'
         endContent={<FaArrowRotateLeft/>}
-        onClick={getRandomPass}
+        onPressStart={() => setIsGenerating(true)}
+        onPressEnd={() => setIsGenerating(false)}
       >
         Volver a generar
       </Button>
