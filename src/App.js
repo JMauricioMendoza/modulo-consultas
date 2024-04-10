@@ -5,6 +5,7 @@ import Header from './components/Header';
 import QuerySearcher from './components/QuerySearcher';
 import ActualizarSeguro from './components/ActualizarSeguro';
 import GenerarPass from './components/GenerarPass';
+import GrupoAbierto from './components/GrupoAbierto';
 import ModalComp from './components/ModalComp';
 import DarkThemeSwitch from './components/DarkThemeSwitch';
 import { FaSearch } from 'react-icons/fa';
@@ -35,6 +36,9 @@ export default function App() {
       break;
       case 'generar-pass':
         setStage(<GenerarPass handleModal={handleModal}/>)
+      break;
+      case 'grupo-abierto':
+        setStage(<GrupoAbierto handleModal={handleModal}/>)
       break;
       default :
         setStage(null);
