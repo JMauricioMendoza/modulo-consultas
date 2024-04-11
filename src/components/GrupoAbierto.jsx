@@ -5,15 +5,13 @@ import { Input, Button } from '@nextui-org/react';
 import handleChange from '../utils/handleChange';
 import areInputsEmpty from '../utils/areInputsEmpty';
 
-export default function ({ handleModal }) {
+export default function GrupoAbierto ({ handleModal }) {
   const [inputGrupo, setInputGrupo] = useState('');
-  const [inputCiclo, setInputCiclo] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const sendData = async () => {
     const data = {
-      grupo : inputGrupo,
-      cicloCorrecto : inputCiclo
+      grupo : inputGrupo
     };
 
     await axios.post('https://192.168.100.7/consultas-db/public/perrillo/grupoAbiertoPorError', data)
@@ -31,28 +29,26 @@ export default function ({ handleModal }) {
   }, [inputGrupo]); 
 
   return(
-    <>
-      <InputsButtonCont>
-        <InputCont>
-          <Input
-            type='text'
-            label='GrupoID'
-            labelPlacement='outside'
-            placeholder='Ingresa el número de grupo'
-            onChange={(ev) => handleChange(ev, setInputGrupo, 0)}
-            value={inputGrupo}
-          />
-        </InputCont>
-        <Button
-          color='primary'
-          size='md'
-          isDisabled={isButtonDisabled}
-          onClick={sendData}
-        >
-          Aplicar
-        </Button>
-      </InputsButtonCont>
-    </>
+    <InputsButtonCont>
+      <InputCont>
+        <Input
+          type='text'
+          label='GrupoID'
+          labelPlacement='outside'
+          placeholder='Ingresa el número de grupo'
+          onChange={(ev) => handleChange(ev, setInputGrupo, 0)}
+          value={inputGrupo}
+        />
+      </InputCont>
+      <Button
+        color='primary'
+        size='md'
+        isDisabled={isButtonDisabled}
+        onClick={sendData}
+      >
+        Aplicar
+      </Button>
+    </InputsButtonCont>
   );
 };
 

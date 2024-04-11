@@ -10,6 +10,9 @@ const handleChange = (ev, setValue, numberType) => {
       value = value.replace(/(\..*)\./g, '$1');
       value = value.replace(/^(\.)/g, '0$1');
     break;
+    case 2:
+      value = value.toUpperCase()
+    break;
     default :
       return null;
   };

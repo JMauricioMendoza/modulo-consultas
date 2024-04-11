@@ -3,8 +3,9 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
 
-body {
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  cursor: url(https://192.168.100.7/consultas-db/public/perrillo-assets/static/media/cursor.png), auto;
 }
