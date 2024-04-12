@@ -13,7 +13,6 @@ export default function Header ({ lightMode }) {
 
 const HeaderCont = styled.header`
   align-items: center;
-  background-color: ${({ $lightMode }) => $lightMode ? '#D7AC2B' : '#000000'};
   display: flex;
   height: 64px;
   justify-content: space-between;

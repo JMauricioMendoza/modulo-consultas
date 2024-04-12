@@ -7,11 +7,12 @@ import ActualizarSeguro from './components/ActualizarSeguro';
 import GenerarPass from './components/GenerarPass';
 import GrupoAbierto from './components/GrupoAbierto';
 import BuscarClave from './components/BuscarClave';
+import ReasignarCartera from './components/NuevoPromotor';
 import ModalComp from './components/ModalComp';
 import DarkThemeSwitch from './components/DarkThemeSwitch';
 import { FaSearch } from 'react-icons/fa';
 
-export default function App() {
+export default function App () {
   const [searchInput, setSearchInput] = useState(null);
   const [stage, setStage] = useState(null);
   const [modalContent, setModalContent] = useState({});
@@ -42,7 +43,10 @@ export default function App() {
         setStage(<GrupoAbierto handleModal={handleModal}/>)
       break;
       case 'buscar-clave':
-        setStage(<BuscarClave handleModal={handleModal} lightMode={lightMode}/>)
+        setStage(<BuscarClave handleModal={handleModal}/>)
+      break;
+      case 'reasignar-cartera':
+        setStage(<ReasignarCartera handleModal={handleModal}/>);
       break;
       default :
         setStage(null);
@@ -95,7 +99,7 @@ const AppDiv = styled.div`
   justify-content: center;
   min-height: 100vh;
   padding-top: 96px;
-  width: 100vw;
+  width: 100%;
 `;
 
 const AllCont = styled.div`

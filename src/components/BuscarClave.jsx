@@ -90,6 +90,5 @@ const Tabla = styled.div`
 
 const TextoTabla = styled.p`
   margin-bottom: 16px;
-  padding: 4px;
   text-align: center;
 `;
