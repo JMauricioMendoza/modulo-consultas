@@ -45,22 +45,17 @@ export default function ReasignarCartera({ handleModal }) {
   };
 
   const sendData = async () => {
-    const dataGrupal = {
-      grupos : lista,
-      sucursal : parseInt(inputSucursal),
-      promotor : parseInt(inputPromotor)
+    const commonData = {
+      sucursal: parseInt(inputSucursal),
+      promotor: parseInt(inputPromotor),
+      esGrupal: isSwitchSelected
     };
+    
+    const data = isSwitchSelected 
+      ? { ...commonData, grupos: lista } 
+      : { ...commonData, creditos: lista };
 
-    const dataIndividual = {
-      creditos : lista,
-      sucursal : parseInt(inputSucursal),
-      promotor : parseInt(inputPromotor)
-    };
-
-    const url = isSwitchSelected ? 'reasignacionCarteraGrupal' : 'reasignacionCarteraIndividual';
-    const data = isSwitchSelected ? dataGrupal : dataIndividual;
-
-    await axios.post(`https://192.168.100.7/consultas-db/public/perrillo/${url}`, data)
+    await axios.post('https://192.168.100.7/consultas-db/public/perrillo/reasignacionCartera', data)
       .then(response => {
         if(response.data.estado) handleCorrect(response.data.mensaje);
         else handleModal(true, response.data.mensaje);

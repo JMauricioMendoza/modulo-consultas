@@ -4,24 +4,12 @@
     "value" : "actualizar-seguro"
   },
   {
-    "label" : "Alta de usuarios de plataforma",
-    "value" : "usuarios-plataforma"
-  },
-  {
     "label" : "Reasignación de cartera",
     "value" : "reasignar-cartera"
   },
   {
     "label" : "Grupo abierto por error",
     "value" : "grupo-abierto"
-  },
-  {
-    "label" : "Reversa de desembolso",
-    "value" : "reversa-desembolso"
-  },
-  {
-    "label" : "Reporte de ejecutivos",
-    "value" : "reporte-ejecutivos"
   },
   {
     "label" : "Buscar clave de usuario SAFI",
