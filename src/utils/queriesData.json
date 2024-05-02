@@ -18,5 +18,9 @@
   {
     "label" : "Generador de contraseñas",
     "value" : "generar-pass"
+  },
+  {
+    "label" : "Reversa de desembolso",
+    "value" : "reversa-desembolso"
   }
 ]
