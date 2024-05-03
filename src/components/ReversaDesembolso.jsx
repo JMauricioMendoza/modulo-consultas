@@ -7,7 +7,7 @@ import areInputsEmpty from '../utils/areInputsEmpty';
 import { FaPeopleGroup, FaPerson } from 'react-icons/fa6';
 
 export default function ReversaDesembolso ({ handleModal }) {
-  const [isSwitchSelected, setIsSwitchSelected] = useState();
+  const [isSwitchSelected, setIsSwitchSelected] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [inputCredito, setInputCredito] = useState(''); 
 

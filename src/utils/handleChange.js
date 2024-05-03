@@ -13,6 +13,12 @@ const handleChange = (ev, setValue, numberType) => {
     case 2:
       value = value.toUpperCase()
     break;
+    case 3:
+      value = value.replace(/[^0-9,]/g, '');
+      value = value.replace(/(,)[,]+/g, '$1');
+      value = value.replace(/(,)\.(?=.*\,)/g, '$1');
+      value = value.replace(/^,/, '');
+      break;
     default :
       return null;
   };

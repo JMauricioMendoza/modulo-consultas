@@ -1,50 +1,29 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { Switch, Input, Button } from '@nextui-org/react';
+import { Switch, Input, Button, Textarea } from '@nextui-org/react';
 import handleChange from '../utils/handleChange';
 import areInputsEmpty from '../utils/areInputsEmpty';
 import { FaPeopleGroup, FaPerson } from 'react-icons/fa6';
-import { FaPlus, FaRegTrashAlt } from 'react-icons/fa';
 
 export default function ReasignarCartera({ handleModal }) {
-  const [isSwitchSelected, setIsSwitchSelected] = useState();
+  const [isSwitchSelected, setIsSwitchSelected] = useState(false);
   const [inputPromotor, setInputPromotor] = useState('');
-  const [inputCredito, setInputCredito] = useState(''); 
+  const [textArea, setTextArea] = useState('');
   const [inputSucursal, setInputSucursal] = useState(''); 
-  const [isAddButtonDisabled, setIsAddButtonDisabled] = useState('');
-  const [lista, setLista] = useState([]);
   const [isApplyButtonDisabled, setIsApplyButtonDisabled] = useState('');
-
-  const addToList = () => {
-    setLista(prevArray => [...prevArray, parseInt(inputCredito)]);
-    setInputCredito('');
-  };
-
-  const eraseFromList = (idx) => {
-    const tempArray = [...lista];
-    tempArray.splice(idx, 1);
-    setLista(tempArray);
-  };
-
-  const disableButton = () => {
-    if(areInputsEmpty([inputPromotor, inputSucursal])) return true;
-
-    if(lista.length === 0) return true;
-
-    return false;
-  };
 
   const handleCorrect = (mensaje) => {
     handleModal(false, mensaje);
 
     setInputPromotor('');
-    setInputCredito('');
     setInputSucursal('');
-    setLista([]);
+    setTextArea('');
   };
 
   const sendData = async () => {
+    const lista = textArea.split(',').map(numero => parseInt(numero));
+
     const commonData = {
       sucursal: parseInt(inputSucursal),
       promotor: parseInt(inputPromotor),
@@ -65,17 +44,9 @@ export default function ReasignarCartera({ handleModal }) {
       });
   };
 
-  useEffect(() => {
-    setIsAddButtonDisabled(areInputsEmpty([inputCredito]));
-  }, [inputCredito]);
-
-  useEffect(() => {
-    setIsApplyButtonDisabled(disableButton());
-  }, [inputPromotor, lista, inputSucursal]);
-
-  useEffect(() => {
-    setLista([]);
-  }, [isSwitchSelected]);
+  useEffect(() =>{
+    setIsApplyButtonDisabled(areInputsEmpty([inputPromotor, inputSucursal, textArea]));
+  }, [inputPromotor, inputSucursal, textArea]);
 
   return (
     <>
@@ -116,37 +87,14 @@ export default function ReasignarCartera({ handleModal }) {
         </InputCont>
       </InputButtonCont>
       <InputButtonCont>
-        <InputCont>
-          <Input
-            type='text'
-            label={`Número de ${isSwitchSelected ? 'grupo' : 'crédito'}`}
-            labelPlacement='outside'
-            placeholder={`Ingresa el número de ${isSwitchSelected ? 'grupo' : 'crédito'}`}
-            onChange={(ev) => handleChange(ev, setInputCredito, 0)}
-            value={inputCredito}
-          />
-        </InputCont>
-        <Button
-          isIconOnly
-          color='success'
-          isDisabled={isAddButtonDisabled}
-          onClick={addToList}
-        >
-          <FaPlus/>
-        </Button>
+        <Textarea
+          label={`Número de ${isSwitchSelected ? 'grupo' : 'crédito'}`}
+          placeholder={`Ingresa los números de ${isSwitchSelected ? 'grupo' : 'crédito'} separados por una coma ","`}
+          labelPlacement='outside'
+          value={textArea}
+          onChange={(ev) => handleChange(ev, setTextArea, 3)}
+        />
       </InputButtonCont>
-      {lista.map((item, index) => (
-        <Tabla key={index}>
-          <TextoTabla>{item}</TextoTabla>
-          <Button
-            color='danger'
-            isIconOnly
-            onClick={() => eraseFromList(index)}
-          >
-            <FaRegTrashAlt/>
-          </Button>
-        </Tabla>
-      ))}
       <ButtonCont>
         <Button
           color='primary'
@@ -174,18 +122,6 @@ const InputButtonCont = styled.div`
 
 const InputCont = styled.div`
   width: 376.5px;
-`;
-
-const Tabla = styled.div`
-  display: grid;
-  gap: 0;
-  grid-template-columns: 128px 128px;
-  place-items: center;
-  padding: 8px;
-`;
-
-const TextoTabla = styled.p`
-  text-align: center;
 `;
 
 const ButtonCont = styled.div`
