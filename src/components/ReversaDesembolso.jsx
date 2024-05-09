@@ -23,7 +23,7 @@ export default function ReversaDesembolso ({ handleModal }) {
       ? { esGrupal: isSwitchSelected, grupos: inputCredito } 
       : { esGrupal: isSwitchSelected, creditos: inputCredito };
 
-    await axios.post('https://192.168.100.7/consultas-db/public/perrillo/reasignacionCartera', data)
+    await axios.post('https://192.168.100.7/consultas-db/public/perrillo/eliminarCredito', data)
       .then(response => {
         if(response.data.estado) handleCorrect(response.data.mensaje);
         else handleModal(true, response.data.mensaje);
@@ -67,6 +67,7 @@ export default function ReversaDesembolso ({ handleModal }) {
         <Button
           color='primary'
           isDisabled={isButtonDisabled}
+          onClick={sendData}
         >
           Aplicar
         </Button>
