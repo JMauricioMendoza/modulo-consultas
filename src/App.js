@@ -9,6 +9,7 @@ import GrupoAbierto from './components/GrupoAbierto';
 import BuscarClave from './components/BuscarClave';
 import ReasignarCartera from './components/NuevoPromotor';
 import ReversaDesembolso from './components/ReversaDesembolso';
+import NombreGrupo from './components/NombreGrupo';
 import ModalComp from './components/ModalComp';
 import DarkThemeSwitch from './components/DarkThemeSwitch';
 import { FaSearch } from 'react-icons/fa';
@@ -51,6 +52,9 @@ export default function App () {
       break;
       case 'reversa-desembolso':
         setStage(<ReversaDesembolso handleModal={handleModal}/>);
+      break;
+      case 'nombre-grupo':
+        setStage(<NombreGrupo handleModal={handleModal}/>);
       break;
       default :
         setStage(null);
